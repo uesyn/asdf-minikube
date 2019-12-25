@@ -14,5 +14,4 @@ function sort_versions() {
 }
 
 # Fetch all tag names, and get only second column. Then remove all unnecesary characters.
-versions=$(eval $cmd | sed -nE 's/[ \s]+"tag_name":[ \s]*"v(.*)",/\1/p' | sort_versions)
-echo $versions
+eval $cmd | sed -nE 's/[ \s]+"tag_name":[ \s]*"v(.*)",/\1/p' | sort_versions | xargs

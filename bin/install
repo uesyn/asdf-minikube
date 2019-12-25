@@ -20,7 +20,12 @@ install_minikube() {
   local download_path="$tmp_download_dir/$(get_filename)"
 
   echo "Downloading minikube from ${download_url}"
-  curl -Lo $download_path $download_url
+
+  cmd="curl -L -o $download_path"
+  if [ -n "$GITHUB_API_TOKEN" ]; then
+    cmd="$cmd -H 'Authorization: token $GITHUB_API_TOKEN'"
+  fi
+  eval $cmd $download_url
 
   echo "Creating bin directory"
   mkdir -p "${bin_install_path}"
